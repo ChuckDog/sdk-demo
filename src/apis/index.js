@@ -3,8 +3,6 @@ import apis from './apis';
 
 const BASE_URL = process.env.BASE_URL;
 
-console.log(BASE_URL, '-----> BASE_URL');
-
 const apiBuilder = apis => {
   return Object.keys(apis).reduce((pre, key) => {
     let url,

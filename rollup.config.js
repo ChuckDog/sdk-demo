@@ -25,7 +25,7 @@ const plugins = [
   }),
 ];
 
-if ('development' !== NODE_ENV) {
+if (NODE_ENV === 'product') {
   plugins.push(
     terser({
       compress: {
