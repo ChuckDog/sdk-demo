@@ -49,7 +49,7 @@ const config = [
     input: 'src/index.js',
     output: {
       name: 'sdk-demo',
-      file: 'lib/index.js',
+      file: 'dist/index.js',
       format: 'cjs',
     },
     plugins,
