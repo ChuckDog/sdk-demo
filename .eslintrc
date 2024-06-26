@@ -1,11 +1,10 @@
 {
-  "parser": "@babel/eslint-parser",
-  "plugins": ["prettier"],
-  "extends": "./node_modules/gts/",
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["prettier", "@typescript-eslint"],
   "settings": {
     "import/resolver": {
       "node": {
-        "extensions": [".js"]
+        "extensions": [".js", ".ts"]
       }
     }
   },
@@ -21,6 +20,8 @@
     "SharedArrayBuffer": false
   },
   "parserOptions": {
+    "ecmaVersion": 2020,
+    "project": ["tsconfig.json"],
     "sourceType": "module"
   }
 }

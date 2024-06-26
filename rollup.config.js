@@ -3,12 +3,17 @@ import eslint from '@rollup/plugin-eslint';
 import {babel} from '@rollup/plugin-babel';
 import replace from 'rollup-plugin-replace';
 import {terser} from 'rollup-plugin-terser';
+import typescript from '@rollup/plugin-typescript';
 
 const NODE_ENV = process.env.NODE_ENV;
 const ENV = JSON.stringify(NODE_ENV || 'development');
 const VERSION = packageConfig.version;
 
 const plugins = [
+  typescript({
+    tsconfig: './tsconfig.json',
+    exclude: ['node_modules', /\.test.((js|jsx|ts|tsx))$/],
+  }),
   eslint({
     throwOnError: true,
     throwOnWarning: true,
@@ -17,7 +22,7 @@ const plugins = [
   replace({
     exclude: 'node_modules/**',
     ENV,
-    VERSION: `'${VERSION}'`,
+    VERSION,
   }),
   babel({
     include: 'src/**/*',
@@ -46,7 +51,7 @@ if (NODE_ENV === 'product') {
 
 const config = [
   {
-    input: 'src/index.js',
+    input: 'src/index.ts',
     output: {
       name: 'sdk-demo',
       file: 'dist/index.js',

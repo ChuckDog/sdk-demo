@@ -2,4 +2,6 @@
 lib/
 dist/
 node_modules/
+.rollup.cache
 yarn-error.log
+tsconfig.tsbuildinfo

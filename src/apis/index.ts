@@ -1,10 +1,10 @@
 import axios from 'axios';
 import apis from './apis';
 
-const BASE_URL = process.env.BASE_URL;
+const BASE_URL = 'http://52.82.70.169:3000';
 
-const apiBuilder = apis => {
-  return Object.keys(apis).reduce((pre, key) => {
+const apiBuilder = (apis: any) => {
+  return Object.keys(apis).reduce((pre: any, key) => {
     let url,
       method = 'POST';
     const urlArr = apis[key].split(' ');
@@ -16,7 +16,7 @@ const apiBuilder = apis => {
     }
     const matchRes = url.match(/(?<=:{).*?(?=})/);
 
-    pre[key] = async (data, options) => {
+    pre[key] = async (data: any, options: any) => {
       let params,
         currentUrl = url;
 
@@ -43,4 +43,4 @@ const apiBuilder = apis => {
   }, {});
 };
 
-export default apiBuilder(apis);
+export default apiBuilder(apis) as any;
