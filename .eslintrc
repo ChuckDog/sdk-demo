@@ -1,0 +1,26 @@
+{
+  "parser": "@babel/eslint-parser",
+  "plugins": ["prettier"],
+  "extends": "./node_modules/gts/",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js"]
+      }
+    }
+  },
+  "env": {
+    "es6": true,
+    "browser": false,
+    "node": true,
+    "jquery": false,
+    "jest": true
+  },
+  "globals": {
+    "Atomics": false,
+    "SharedArrayBuffer": false
+  },
+  "parserOptions": {
+    "sourceType": "module"
+  }
+}
