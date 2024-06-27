@@ -6,7 +6,7 @@ type IProps = {
   NotificationService: any;
 };
 
-export const Services: IProps = {
+export default {
   LoginService,
   NotificationService,
-};
+} as IProps;

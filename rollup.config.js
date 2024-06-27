@@ -63,21 +63,31 @@ const config = [
       {
         file: `dist/${pkg.main}`,
         format: 'cjs',
+        globals: {
+          axios: 'axios',
+        },
         sourcemap: !isProd,
       },
       {
         file: `dist/${pkg.module}`,
         format: 'esm',
+        globals: {
+          axios: 'axios',
+        },
         sourcemap: !isProd,
       },
       {
         file: `dist/${pkg.browser}`,
         format: 'umd',
         name: 'sdk-demo',
+        globals: {
+          axios: 'axios',
+        },
         sourcemap: !isProd,
       },
     ],
     plugins,
+    external: ['axios'],
   },
 ];
 
