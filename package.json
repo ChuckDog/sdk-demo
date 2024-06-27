@@ -5,6 +5,7 @@
   "author": "Chuck",
   "license": "MIT",
   "main": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
     "build:prod": "export NODE_ENV=production && rollup -c ./rollup.config.js && npm run build:types",
