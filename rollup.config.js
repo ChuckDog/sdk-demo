@@ -8,30 +8,29 @@ import typescript from '@rollup/plugin-typescript';
 const NODE_ENV = process.env.NODE_ENV;
 const ENV = JSON.stringify(NODE_ENV || 'development');
 const VERSION = packageConfig.version;
+const isProd = NODE_ENV === 'production';
 
 const plugins = [
   typescript({
     tsconfig: './tsconfig.json',
     exclude: ['node_modules', /\.test.((js|jsx|ts|tsx))$/],
   }),
-  eslint({
-    throwOnError: true,
-    throwOnWarning: true,
-    include: 'src/**',
-  }),
   replace({
     exclude: 'node_modules/**',
     ENV,
     VERSION,
   }),
+  eslint({
+    throwOnError: true,
+    throwOnWarning: true,
+    include: 'src/**',
+  }),
   babel({
     include: 'src/**/*',
     exclude: 'node_modules/**',
+    babelHelpers: 'bundled',
   }),
-];
-
-if (NODE_ENV === 'product') {
-  plugins.push(
+  isProd &&
     terser({
       compress: {
         pure_getters: true,
@@ -45,9 +44,8 @@ if (NODE_ENV === 'product') {
         },
         pure_funcs: ['error', 'warn'],
       },
-    })
-  );
-}
+    }),
+];
 
 const config = [
   {

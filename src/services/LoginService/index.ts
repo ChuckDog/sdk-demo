@@ -1,9 +1,9 @@
-import apis from '../../apis';
+import apis from '@/apis';
 
 const {login} = apis;
 
 const LoginService = {
-  login: async (payload: any) => await login(payload),
+  login: async (payload: any, options: any) => await login(payload, options),
 };
 
 export default LoginService;

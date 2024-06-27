@@ -2,14 +2,15 @@
   "name": "sdk-demo",
   "version": "1.0.0",
   "description": "This is a js sdk demo",
-  "main": "src/index.js",
   "author": "Chuck",
   "license": "MIT",
+  "main": "index.js",
   "scripts": {
     "build": "rollup -c ./rollup.config.js",
-    "build:prod": "export NODE_ENV=production && rollup -c ./rollup.config.js",
-    "build:dev": "export NODE_ENV=development && rollup -c ./rollup.config.js",
+    "build:prod": "export NODE_ENV=production && rollup -c ./rollup.config.js && npm run build:types",
+    "build:dev": "export NODE_ENV=development && rollup -c ./rollup.config.js && npm run build:types",
     "build:analyze": "export BUNDLE_ANALYZE=true && npm run build",
+    "build:types": "npx tsc",
     "test": "jest"
   },
   "dependencies": {

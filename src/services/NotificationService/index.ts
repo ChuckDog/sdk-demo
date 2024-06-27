@@ -1,10 +1,12 @@
-import apis from '../../apis';
+import apis from '@/apis';
 
 const {webHookSlack, webhookFeiShu} = apis;
 
 const NotificationService = {
-  createWebhookSlack: async (payload: any) => await webHookSlack(payload),
-  createWebhookFeiShu: async (payload: any) => await webhookFeiShu(payload),
+  createWebhookSlack: async (payload: any, options: any) =>
+    await webHookSlack(payload, options),
+  createWebhookFeiShu: async (payload: any, options: any) =>
+    await webhookFeiShu(payload, options),
 };
 
 export default NotificationService;
