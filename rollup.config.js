@@ -1,25 +1,34 @@
-import packageConfig from './package.json';
+import pkg from './package.json';
+import json from 'rollup-plugin-json';
 import eslint from '@rollup/plugin-eslint';
 import {babel} from '@rollup/plugin-babel';
 import replace from 'rollup-plugin-replace';
 import {terser} from 'rollup-plugin-terser';
+import commonjs from '@rollup/plugin-commonjs';
+import resolve from 'rollup-plugin-node-resolve';
 import typescript from '@rollup/plugin-typescript';
 
 const NODE_ENV = process.env.NODE_ENV;
 const ENV = JSON.stringify(NODE_ENV || 'development');
-const VERSION = packageConfig.version;
+const VERSION = pkg.version;
 const isProd = NODE_ENV === 'production';
 
 const plugins = [
+  replace({
+    ENV,
+    VERSION,
+    exclude: 'node_modules/**',
+  }),
   typescript({
     tsconfig: './tsconfig.json',
     exclude: ['node_modules', /\.test.((js|jsx|ts|tsx))$/],
   }),
-  replace({
-    exclude: 'node_modules/**',
-    ENV,
-    VERSION,
+  json(),
+  commonjs({
+    include: /node_modules/,
+    requireReturnsDefault: 'auto',
   }),
+  resolve(),
   eslint({
     throwOnError: true,
     throwOnWarning: true,
@@ -50,11 +59,24 @@ const plugins = [
 const config = [
   {
     input: 'src/index.ts',
-    output: {
-      name: 'sdk-demo',
-      file: 'dist/index.js',
-      format: 'cjs',
-    },
+    output: [
+      {
+        file: `dist/${pkg.main}`,
+        format: 'cjs',
+        sourcemap: !isProd,
+      },
+      {
+        file: `dist/${pkg.module}`,
+        format: 'esm',
+        sourcemap: !isProd,
+      },
+      {
+        file: `dist/${pkg.browser}`,
+        format: 'umd',
+        name: 'sdk-demo',
+        sourcemap: !isProd,
+      },
+    ],
     plugins,
   },
 ];
